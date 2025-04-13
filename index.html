@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Forum</title>
+
+    <!-- cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/5ee0540729.js" crossorigin="anonymous"></script>
+
+    <!-- customize -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                        button: '#797dfc',
+                        purp: '#12132d',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+        .font-mulish {
+            font-family: "Mulish", sans-serif;
+        }
+
+        .font-inter {
+            font-family: "Inter", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="container mx-auto">
+        <!-- nav bar -->
+        <section class="font-mulish mt-8">
+            <div class="navbar bg-base-100 flex-col md:flex-row gap-4">
+                <div class="flex-1">
+
+                    <img src="images/logo.png" alt="">
+                </div>
+                <div class="flex-none gap-4">
+                    <div class="gap-2 ">
+                        <div class="btn btn-circle" title="Home">
+                            <i class="fa-solid fa-house "></i>
+                        </div>
+                        <div class="btn btn-circle" title="Edit">
+                            <i class="fa-solid fa-pencil"></i>
+                        </div>
+                        <div class="btn btn-circle" title="Add">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                        <div class="btn btn-circle" title="Report">
+                            <i class="fa-regular fa-flag"></i>
+                        </div>
+
+                    </div>
+                    <div class="">
+                        <button class="btn  rounded-full bg-button text-white  px-6 font-bold">Sign In</button>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- nav bar done -->
+
+        <!-- banner -->
+        <section class="mt-8">
+            <div class=" bg-purp rounded-2xl bg-no-repeat bg-cover" style="background-image: url(images/bgbanner.png);">
+                <div class="flex justify-between p-4 md:p-24 flex-col-reverse lg:flex-row-reverse gap-4 ">
+                    <div class="bg-white text-black p-8 flex-1 rounded-2xl space-y-6">
+                        <div class="flex gap-5 justify-between">
+                            <h2 class="font-medium text-2xl">Registered Users</h2>
+                            <h2 class="font-medium text-2xl">01</h2>
+                        </div>
+                        <div class="flex justify-between">
+                            <h2 class="font-medium text-2xl">Forum</h2>
+                            <h2 class="font-medium text-2xl">05</h2>
+                        </div>
+                        <div class="flex justify-between">
+                            <h2 class="font-medium text-2xl">Topics</h2>
+                            <h2 class="font-medium text-2xl">01</h2>
+                        </div>
+                        <div class="flex justify-between">
+                            <h2 class="font-medium text-2xl">Replies</h2>
+                            <h2 class="font-medium text-2xl">01</h2>
+                        </div>
+                    </div>
+                    <div class="text-white space-y-5 flex-1 text-center lg:text-left">
+                        <h1 class="text-3xl lg:text-6xl font-black leading-normal">Welcome to the <br><span
+                                class="text-button">ReTro</span>
+                            Forum</h1>
+                        <p class=" font-medium text-lg lg:text-xl leading-normal opacity-85">Share your favorite opinion and win
+                            retro <br>
+                            forum coffee
+                            mug!</p>
+                        <input id="input" type="text" placeholder="Search Here Anything"
+                            class="input input-bordered w-full max-w-xs text-black" />
+                        <button onclick="search()"
+                            class="btn btn-primary rounded-full px-6 bg-button text-white text-xl font-bold">Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main class="container mx-auto">
+        <!-- loading spinner -->
+        <div id="spinner" class="text-center mt-14 min-h-screen">
+            <span class="loading loading-spinner loading-lg"></span>
+        </div>
+
+        <!-- discuss -->
+        <section class="mt-14">
+            <div class="text-center space-y-5">
+                <h2 class="font-black text-4xl font-mulish">Let's Discuss</h2>
+                <p class="text-lg font-normal font-inter opacity-85">Welcome to our retro forum, where we come together to discuss
+                    the latest events<br> shaping our world.  In an era inundated with information</p>
+            </div>
+
+            <section class="mt-14 gap-6 flex flex-col lg:flex-row justify-between">
+                <!-- news part -->
+                <div id="all-post-container" class="space-y-6 flex-1">
+                </div>
+
+                <!-- mark as read part -->
+                <div class="bg-gray-100 lg:w-1/3 p-6 space-y-4 rounded-xl ">
+                    <div class="flex justify-between">
+                        <h2 class="font-mulish font-bold text-xl">Title</h2>
+                        <h3 class="font-inter font-normal ">
+                            <i class="fa-solid fa-check-double text-green-500"></i> Mark
+                            as read <span id="mark-as-read-number">(0)</span>
+                        </h3>
+                    </div>
+                    <div id="mark-as-read-container" class="space-y-4">
+
+                    </div>
+                </div>
+            </section>
+
+
+        </section>
+
+        <!-- join forum -->
+        <section class="mt-14">
+            <div class=" bg-purp rounded-2xl bg-no-repeat bg-cover">
+                <div class=" flex justify-between items-center p-4 md:p-20 flex-col-reverse lg:flex-row-reverse gap-8">
+                    <div class=" ">
+                        <img src="images/joinforum.png" alt="">
+                    </div>
+                    <div class=" text-white space-y-5 flex-1 text-center lg:text-left">
+                        <h1 class="text-4xl font-black leading-normal">Join Our
+                            Forum</h1>
+                        <p class=" font-medium text-xl leading-normal opacity-85">Join our vibrant forum community where ideas
+                            flourish and conversations spark! <br>  There's a place for you here. </p>
+
+                        <button
+                            class="btn btn-primary rounded-full px-7 bg-button text-white text-xl font-bold">Register
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- latest post -->
+        <section class="mt-14">
+            <div class="text-center space-y-5">
+                <h2 class="font-black text-4xl font-mulish">Latest Posts</h2>
+                <p class="text-lg font-normal font-inter opacity-85">Join us in our latest news forum where we dissect the
+                    headlines shaping our world today. <br> From political upheavals to groundbreaking scientific
+                    discoveries, we provide a platform for informed discussion and analysis.</p>
+            </div>
+
+            <div class="flex gap-6 flex-col lg:flex-row mt-14 justify-center font-mulish" id="latest-post-container">
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer footer-center p-10 bg-gray-100 text-black font-mulish mt-14">
+        <aside class=" border-b-2 pb-14 space-y-4 mt-12">
+            <h1 class="text-4xl font-black">ReTro</h1>
+            <p class="text-lg font-normal opacity-85"> Where Ideas Unite, Voices Amplify, and Knowledge Flourishes</p>
+            <div class="grid grid-flow-col gap-4 text-3xl space-x-4">
+                <i class="fa-brands fa-facebook-f"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-github"></i>
+            </div>
+        </aside>
+        <nav class="mb-12">
+            <p class="text-lg font-light">Copyright © 2024 - All right reserved </p>
+        </nav>
+    </footer>
+
+    <script src="js/function.js"></script>
+    <script src="js/logic.js"></script>
+</body>
+
+</html>
